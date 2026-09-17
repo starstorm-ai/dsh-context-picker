@@ -1,0 +1,35 @@
+packages:
+  - .
+  - upstream/deepseek-harness/vendor/*
+  - upstream/deepseek-harness/packages/*/*
+  - upstream/deepseek-harness/native/landlock-run
+  - upstream/deepseek-harness/native/landlock-run/packages/*
+  - upstream/deepseek-harness/apps/*
+  - upstream/deepseek-harness/python/sdk-runtime
+
+linkWorkspacePackages: true
+
+overrides:
+  '@deepseek-ai/cosmokit': 'link:upstream/deepseek-harness/vendor/cosmokit'
+  '@deepseek-ai/schemastery': 'link:upstream/deepseek-harness/vendor/schemastery'
+  '@earendil-works/pi-ai': 0.84.2
+  zod: 4.4.3
+
+peerDependencyRules:
+  allowedVersions:
+    typescript: '>=5 <7'
+
+allowBuilds:
+  esbuild: true
+  node-pty: true
+  koffi: true
+  '@google/genai': false
+  protobufjs: false
+  node-addon-require-builtin: false
+  '@deepseek-ai/dsh-subprocess-local@file:upstream/deepseek-harness/packages/subprocess/subprocess-local': true
+  electron-winstaller: false
+  fs-ext: true
+  msgpackr-extract: false
+
+patchedDependencies:
+  node-pty@1.2.0-beta.15: upstream/deepseek-harness/patches/node-pty@1.2.0-beta.15.patch

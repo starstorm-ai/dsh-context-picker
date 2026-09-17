@@ -1,0 +1,29 @@
+{
+  "extends": "./upstream/deepseek-harness/tsconfig.base.client.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib/types",
+    "tsBuildInfoFile": "lib/tsconfig.client.tsbuildinfo",
+    "typeRoots": [
+      "./upstream/deepseek-harness/scripts/types",
+      "./node_modules/@types"
+    ],
+    "types": []
+  },
+  "include": [
+    "src/types.ts",
+    "src/provider.ts",
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts"
+  ],
+  "references": [
+    { "path": "./upstream/deepseek-harness/vendor/cordis" },
+    { "path": "./upstream/deepseek-harness/packages/core/session" },
+    { "path": "./upstream/deepseek-harness/packages/typert/protocol" },
+    { "path": "./upstream/deepseek-harness/packages/api/gateway/tsconfig.client.json" },
+    { "path": "./upstream/deepseek-harness/packages/client/locale" },
+    { "path": "./upstream/deepseek-harness/packages/client/ui-slots" },
+    { "path": "./upstream/deepseek-harness/packages/client/ui-conversation" },
+    { "path": "./upstream/deepseek-harness/packages/client/ui-input-trigger" }
+  ]
+}

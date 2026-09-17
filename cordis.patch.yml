@@ -1,0 +1,9 @@
+# Context Picker is additive: it contributes one Host service and one Web
+# provider registry without replacing any built-in DSH reference source.
+- insert:
+    - id: context-picker
+      name: dsh-context-picker
+      config:
+        maxTextBytes: 262144
+        maxReferences: 12
+        recentMessageLimit: 12
