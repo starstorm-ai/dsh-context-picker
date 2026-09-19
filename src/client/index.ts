@@ -30,14 +30,7 @@ export const inject = ['remote', 'locale', 'inputTriggers']
 /** Mount Remote first so the service never publishes a registry it cannot capture through. */
 export async function apply(ctx: Context): Promise<() => Promise<void>> {
   const disposeRemote = await ctx.remote.$mount(contextPickerRemote)
-  const adapter: ContextPickerRemoteAdapter = {
-    capture: async (sessionId, input, signal) => unwrap(await ctx.remote.contextPickerHost.capture(
-      sessionId,
-      input,
-      signal,
-    )),
-  }
-  const serviceFiber = ctx.plugin(ContextPickerClientService, adapter)
+  const serviceFiber = ctx.inject(['remote.contextPickerHost'], registerService)
   try {
     await serviceFiber
   } catch (error) {
@@ -59,6 +52,17 @@ export async function apply(ctx: Context): Promise<() => Promise<void>> {
     await serviceFiber.dispose()
     await disposeRemote()
   }
+}
+
+function registerService(ctx: Context): void {
+  const adapter: ContextPickerRemoteAdapter = {
+    capture: async (sessionId, input, signal) => unwrap(await ctx.remote.contextPickerHost.capture(
+      sessionId,
+      input,
+      signal,
+    )),
+  }
+  new ContextPickerClientService(ctx, adapter)
 }
 
 function registerUi(ctx: Context): void {
